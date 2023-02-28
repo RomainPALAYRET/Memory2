@@ -1,0 +1,29 @@
+-- Table Fonction
+insert into Fonction values (1, 'Charge de communication', 1200.39);
+insert into Fonction values (2, 'Developpeur Web', 1240.75);
+insert into Fonction values (3, 'Developpeur Full-Stack', 1340.75);
+insert into Fonction values (4, 'Cadre', 1640.07);
+insert into Fonction values (5, 'Ingenieur', 300.87);
+insert into Fonction values (6, 'Agent entretien', 3010.87);
+insert into Fonction values (7, 'Agent Double', 5340.07);
+
+-- Table Service
+insert into Service values (101, 'Securite');
+insert into Service values (102, 'Entretien');
+insert into Service values (104, 'Communication');
+insert into Service values (105, 'Secret');
+insert into Service values (106, 'Develloppement');
+
+-- Table Employe
+insert into Employe values (56, 'Palayret', 'Romain', 106, 5);
+insert into Employe values (57, 'Barios', 'Frederic', 106, 5);
+insert into Employe values (58, 'Depreck', 'Corentin', 106, 2);
+insert into Employe values (51, 'Pimplon', 'Magalie', 102, 6);
+insert into Employe values (52, 'Ferraye', 'Manu', 104, 1);
+insert into Employe values (53, 'Miquel', 'Clement', 106, 4);
+
+insert into Employe values (59, 'Nayet', 'Morgan', 106, 3);
+insert into Employe values (60, 'Helg', 'Guillaume', 105, 6);
+insert into Employe values (61, 'Palayret', 'Camille', 101, 7);
+insert into Employe values (62, 'Nanche', 'Tibeau', 101, 4);
+insert into Employe values (63, 'Porte', 'Manon', 106, 5);

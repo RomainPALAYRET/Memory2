@@ -1,0 +1,23 @@
+CREATE TABLE Fonction(
+   NumFonction INT,
+   libfonct VARCHAR(50),
+   salaire DECIMAL(15,2),
+   PRIMARY KEY(NumFonction)
+);
+
+CREATE TABLE Service(
+   numServ INT,
+   libserv VARCHAR(50),
+   PRIMARY KEY(numServ)
+);
+
+CREATE TABLE Employe(
+   numemp INT,
+   nom VARCHAR(50),
+   prenom VARCHAR(50),
+   numServ INT NOT NULL,
+   NumFonction INT NOT NULL,
+   PRIMARY KEY(numemp),
+   FOREIGN KEY(numServ) REFERENCES Service(numServ),
+   FOREIGN KEY(NumFonction) REFERENCES Fonction(NumFonction)
+);

@@ -1,0 +1,118 @@
+-- 1. Afficher par ordre alphabétique les services de l’entreprise
+select libserv
+from service
+order by libserv asc
+
+-- 2. Afficher le nom et prénom des personnes qui sont « Ingenieur ».
+select nom, prenom
+from employe e
+inner join fonction f
+on e.numfonction = f.numfonction
+where f.libfonct = 'Ingenieur'
+
+-- 3. Afficher le libellé des fonctions qui ont le plus haut salaire.
+select libfonct
+from (  select libfonct
+        from fonction f
+        order by f.salaire desc)
+where rownum <= 3
+
+-- 4. Afficher les employés qui ont la même fonction que Frederic Barrios
+select *
+from employe
+where numFonction = (select numFonction
+                  from employe
+                  where nom = 'Barios' and prenom = 'Frederic')
+
+--5. Afficher le libellé des services qui n’ont aucun employé.
+select libServ
+from service
+where numServ not in (select numServ
+                     from employe
+                     group by numServ )
+
+-- 6. Afficher les libellés des services qui ont des fonctions d’agent d'entretien et des fonctions d'ingenieur.
+select libServ
+from service
+where numServ in (select numServ
+                  from employe e
+                  where e.numFonction in (select numFonction
+                                          from fonction f
+                                          where f.libFonct = 'Agent entretien' 
+                                                or f.libFonct = 'Ingenieur')
+                  Group by numServ)
+
+-- 7. Afficher les services qui n’ont aucun cadre.
+select *
+from service
+where numServ not in (select numServ
+                      from employe e
+                      where e.numFonction in (select numFonction
+                                              from fonction f
+                                              where f.libFonct = 'Cadre')
+                      Group by numServ)
+
+
+-- 8. Afficher par fonction, le nombre d’employés. Assurez-vous d’afficher toutes les fonctions.
+select libFonct, count(numEmp)
+from fonction f
+left join employe e
+on e.numFonction = f.numFonction
+Group by libFonct
+
+
+-- 9. Afficher pour chaque service, le nombre d’employés. Classez le résultat par ordre décroissant du nombre d’employé.
+select libserv, count(numEmp)
+from service s
+left join employe e
+on e.numserv = s.numserv
+Group by libserv
+order by count(numEmp) desc
+
+
+-- 10. Afficher le libelle du service qui a le plus grand nombre d’employés
+select libserv
+from(
+  select libserv, count(numEmp)
+  from service s
+  left join employe e
+  on e.numserv = s.numserv
+  Group by libserv
+  order by count(numEmp) desc
+)
+where rownum <= 1
+
+
+-- 11. Afficher la liste des services qui ont plus d’employés que la moyenne.
+select libserv, count(numEmp)
+from service s
+left join employe e
+on e.numserv = s.numserv
+Group by libserv
+Having count(numEmp) > (select count(numEmp) from employe) / (select count(numServ) from service)
+
+
+-- 12. Afficher, pour chaque service, l’employé qui a le salaire le plus élevé.
+select libServ, nom, prenom, salaire
+from service s
+inner join employe e
+on s.numServ = e.numServ
+inner join fonction f
+on e.numfonction = f.numfonction
+where salaire = (select max(salaire)
+                 from fonction f
+                 inner join employe e on e.numfonction = f.numfonction
+                 inner join service  on e.numserv = s.numserv
+                 where s.numServ = e.numServ
+                 )
+
+--13 . Afficher, pour chaque service, la fonction la plus représentée
+-- première idée
+select numServ, numFonction, count(numFonction)
+from employe
+group by numServ, numFonction;
+
+
+
+
+
